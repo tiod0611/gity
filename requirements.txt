@@ -1,7 +1,7 @@
 selenium==3.141.0
 scikit-image==0.18.1
-tensorflow==2.5.0-dev20210323
+tf-nightly==2.5.0.dev20210323
 keras==2.5.0
 numpy==1.19.5
 matplotlib==3.3.4
-python==3.6.13  
+python==3.6.13
