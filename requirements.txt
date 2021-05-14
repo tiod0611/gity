@@ -1,3 +1,2 @@
 selenium==3.141.0
 scikit-image==0.18.1
-이걸 삭제해
