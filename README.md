@@ -1,5 +1,6 @@
 # gity
 gather_image_through_youtube
 
-1. 박결
+1. 박 결
 2. 정민혁
+3. 이제헌
