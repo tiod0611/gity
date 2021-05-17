@@ -13,8 +13,8 @@ Gather Image Through Youtube
 1. windows10
 윈도우 유저는 youtube-dl.exe과 chromedriver.exe를 다운 받아야한다.
 
-youtube-dl.exe [다운](https://youtube-dl.org/)  
-chromedirver.exe [다운](https://chromedriver.chromium.org/downloads) ※ 자신의 chrome 브라우저 버전과 같아야 함.
+	youtube-dl.exe [다운](https://youtube-dl.org/)  
+	chromedirver.exe [다운](https://chromedriver.chromium.org/downloads) ※ 자신의 chrome 브라우저 버전과 같아야 함.
 
 
 ## author
