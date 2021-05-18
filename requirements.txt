@@ -4,3 +4,7 @@ tf-nightly==2.5.0.dev20210323
 keras==2.5.0
 numpy==1.19.5
 matplotlib==3.3.4
+tdqm==4.29.1
+cycler==0.10.0
+imageio==2.5.0
+imageio-ffmpeg==0.3.0
