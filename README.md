@@ -1,8 +1,8 @@
 # GITY
 Gather Image Through Youtube
 ---
-유튜브에서 원하는 객체를 검출하여 이미지로 저장해주는 코드입니다.
-이 저장소는 [this_repository](https://github.com/AliaksandrSiarohin/video-preprocessing)
+유튜브에서 원하는 객체를 검출하여 이미지로 저장해주는 코드입니다.  
+이 저장소는 [this_repository](https://github.com/AliaksandrSiarohin/video-preprocessing)에서 영감을 받았습니다.
 
 ## 목차
 - [설치](#installation)
