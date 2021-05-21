@@ -19,9 +19,9 @@
 
 
 ## minding
-1. 저장되는 이미지 크기를 사용자로부터 입력 받도록 변수로 만들어 주셈 - video_preprocessing.py(minding)
-2.
-3.
+1. RGB value 이용해 객체 구분
+2. 구분된 객체 별로 저장
+3. detection 좌표 데이터(labeling data) 저장 기능 추가
 
 ## jerry
 1. GPU 자원 사용할 수 있게 할 것!
@@ -36,7 +36,8 @@
 +
 
 ## minding
-+ 
++ 좌표 받아 이미지 자르기
++ 이미지 저장
 
 ## jerry
 + 
