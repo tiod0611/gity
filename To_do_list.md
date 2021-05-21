@@ -9,9 +9,12 @@
 
 # 할 것 
 
-# video_preprocessing.py
+## video_preprocessing.py
 1. 저장되는 이미지 크기를 사용자로부터 입력 받도록 변수로 만들어 주셈
 
 
-# Object Detection
+## Object Detection
 1. GPU 자원 사용할 수 있게 할 것!
+
+## save 형식 세분화
+1. cut image & get coordiante
