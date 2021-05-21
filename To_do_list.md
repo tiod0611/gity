@@ -16,14 +16,18 @@
 
 # 할 것 
 
-## video_preprocessing.py(minding)
-1. 저장되는 이미지 크기를 사용자로부터 입력 받도록 변수로 만들어 주셈
+## kyeul
+1. 저장 형식 세분화 cut image & get coordiante
+2. Linux용 크롤링 & download video
+3.
 
+## minding
+1. 저장되는 이미지 크기를 사용자로부터 입력 받도록 변수로 만들어 주셈 - video_preprocessing.py(minding)
+2.
+3.
 
-## Object Detection(jerry)
+## jerry
 1. GPU 자원 사용할 수 있게 할 것!
+2.
+3.
 
-## save 형식 세분화(kyeul)
-1. cut image & get coordiante
-
-## Linux용 크롤링 & download video
