@@ -6,7 +6,7 @@
 ## kyeul 
 + 
 ## minding
-+
++ RGB value (R, G, B) 각각 사용하여 객체 분류 정확도 높이기
 
 ## jerry
 + 
@@ -19,9 +19,9 @@
 
 
 ## minding
-1. RGB value 이용해 객체 구분
-2. 구분된 객체 별로 저장
-3. detection 좌표 데이터(labeling data) 저장 기능 추가
+1. detection 좌표 데이터(labeling data) 저장 기능 추가
+2. RGB value (R, G, B) 각각 사용하여 객체 분류 정확도 높이기
+3. 
 
 ## jerry
 1. GPU 자원 사용할 수 있게 할 것!
@@ -37,6 +37,7 @@
 
 ## minding
 + 좌표 받아 이미지 자르기
++ 객체 별 분류
 + 이미지 저장
 
 ## jerry
