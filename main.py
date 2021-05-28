@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--workers", default=1, type=int, help='Number of workers')
     parser.add_argument("--out_folder", default='gity_test', help='Path to output')
-    parser.add_argument("—acc", default="0.5", help="검출 정확도")
+    parser.add_argument("--acc", default="0.5", help="검출 정확도")
 
     args = parser.parse_args()
 
