@@ -42,12 +42,11 @@ if __name__ == "__main__":
             os.makedirs(path)
    
     pool = Pool(processes=args.workers)
-    args_list = cycle([args])
     
     for video in video_ids:
         download(video, args.download, args.youtube) # 동영상 다운로드
         # Pool.imap_unordered(run(args_list, video))
-        run(args_list, video)
+        run(args, video)
         os.remove(os.path.join(path, video+".mp4")) #동영상 삭제
 
 
