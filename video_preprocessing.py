@@ -40,9 +40,9 @@ def obj_segmentation(crop_rgb_dict, crop_sum):
 
 # 비디오 불러오기, 좌표값을 받아 이미지 자르기 (Load video, Crop images by coordinate value)
 # def run(data):
-def run(args, video_id):
+def run(download, acc, image_shape, out_folder, video_id):
     # video_id, args = data
-	video_path = os.path.join(args.download, os.listdir()[0])
+	video_path = os.path.join(download, os.listdir()[0])
 	reader = imageio.get_reader(video_path)
 	crop_rgb_dict = {}
 
@@ -52,7 +52,7 @@ def run(args, video_id):
 			# resize to detection model input size (416, 416)
 			if i % 5 == 0:
 				frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
-				bboxes = detection(frame, args.acc) # 프레임 데이터와 검출정확도
+				bboxes = detection(frame, acc) # 프레임 데이터와 검출정확도
 				print(i, bboxes) # 프레임 별 좌표 검출 정보
 			else:
 				continue
@@ -65,12 +65,12 @@ def run(args, video_id):
 				crop_rgb_dict, obj_num = obj_segmentation(crop_rgb_dict, crop_sum)
 				
 				# 입력받은 이미지 크기(shape)로 재조정
-				if args.image_shape is not None:
-					crop = img_as_ubyte(resize(crop, args.image_shape, anti_aliasing=True))
+				if image_shape is not None:
+					crop = img_as_ubyte(resize(crop, image_shape, anti_aliasing=True))
 				# 이미지 저장 경로 설정
 				first_part = ""
 				first_part += '#' + video_id
 				path = first_part + '.mp4' + '#' + str(obj_num)
-				save(os.path.join(args.out_folder, path), crop, i, obj_num)
+				save(os.path.join(out_folder, path), crop, i, obj_num)
 	except imageio.core.format.CannotReadFrameError:
 		None 
