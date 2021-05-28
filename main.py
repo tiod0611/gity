@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser.add_argument("--workers", default=1, type=int, help='Number of workers')
     parser.add_argument("--out_folder", default='gity_test', help='Path to output')
     parser.add_argument("--acc", default="0.5", help="검출 정확도")
-
+    parser.add_argument("--image_shape", default=(256, 256), type=lambda x: tuple(map(int, x.split(','))), help="Image shape, None for no resize")
     args = parser.parse_args()
 
     video_ids = crawling(args.keyword, args.num_video)
