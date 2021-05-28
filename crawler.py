@@ -17,8 +17,7 @@ def crawling(keyword, numberOfvideos):
     options.add_argument("disable-infobars")
     options.add_argument("--disable-extensions")
 
-    driver_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chromedriver.exe")
-    driver=webdriver.Chrome(chrome_options=options, executable_path=driver_path)
+    driver = webdriver.Chrome('chromedriver', chrome_options=options)
     address = [
         'https://www.youtube.com/results?search_query={}&sp=EgQQARgD',
         'https://www.youtube.com/results?search_query={}&sp=EgQQARgB'
