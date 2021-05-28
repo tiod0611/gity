@@ -33,7 +33,7 @@ def obj_segmentation(crop_rgb_dict, crop_sum):
 				break
 		if obj_num == 0:
 			crop_rgb_dict[max(crop_rgb_dict.keys()) + 1] = crop_sum
-			obj_num = max(crop_rgb_dict.keys()) + 1
+			obj_num = max(crop_rgb_dict.keys())
 
 	return crop_rgb_dict, obj_num
 
@@ -48,9 +48,13 @@ def run(data):
         for i, frame in enumerate(reader):
             # import detection coordinate (bbox location = (x1, x2, y1, y2))
             # resize to detection model input size (416, 416)
-            frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
-            bboxes = detection(frame, args.acc) # 프레임 데이터와 검출정확도
-            print(i, bboxes) # 프레임 별 좌표 검출 정보
+            if i % 5 == 0:
+            	frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
+            	bboxes = detection(frame, args.acc) # 프레임 데이터와 검출정확도
+            	print(i, bboxes) # 프레임 별 좌표 검출 정보
+            else:
+            	continue
+
             for bbox in bboxes:
             	x1, x2, y1, y2 = bbox
             	crop = frame[y1:y2, x1:x2]
