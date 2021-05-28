@@ -42,7 +42,7 @@ def obj_segmentation(crop_rgb_dict, crop_sum):
 # def run(data):
 def run(download, acc, image_shape, out_folder, video_id):
     # video_id, args = data
-	video_path = os.path.join(download, os.listdir()[0])
+	video_path = os.path.join(download, os.listdir(download)[0])
 	reader = imageio.get_reader(video_path)
 	crop_rgb_dict = {}
 
