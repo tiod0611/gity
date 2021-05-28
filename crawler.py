@@ -17,7 +17,7 @@ def crawling(keyword, numberOfvideos):
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome('chromedriver', chrome_options=chrome_options)
-    
+
     address = [
         'https://www.youtube.com/results?search_query={}&sp=EgQQARgD',
         'https://www.youtube.com/results?search_query={}&sp=EgQQARgB'
@@ -42,6 +42,7 @@ def crawling(keyword, numberOfvideos):
             urls.append(re.sub("https://www\.youtube\.com/watch\?v=", "", my_href.get_attribute("href")))
     
     driver.close()
+    print("총 영상 수: {}".format(len(urls)))
     return urls
 
 
