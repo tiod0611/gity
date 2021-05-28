@@ -19,8 +19,8 @@
 
 
 ## minding
-1. detection 좌표 데이터(labeling data) 저장 기능 추가
-2. RGB value (R, G, B) 각각 사용하여 객체 분류 정확도 높이기
+1. RGB value (R, G, B) 각각 사용하여 객체 분류 정확도 높이기
+2. 
 3. 
 
 ## jerry
