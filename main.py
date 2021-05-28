@@ -9,13 +9,19 @@ from video_preprocessing import run
 from multiprocessing import Pool
 from itertools import cycle
 
+DEVNULL = open(os.devnull, 'wb')
 
 def download(video_id, video_path, youtube):
     
     # youtube_dl = os.path.join(os.path.dirname(os.path.abspath(__file__)), "youtube-dl.exe")
     path = os.path.join(video_path, video_id + ".mp4")
-    subprocess.run([ youtube, "-f", 
-                    "247","https://www.youtube.com/watch?v=" + video_id, "--output", path], shell=True)
+    # subprocess.run([ youtube, "-f", 
+    #                 "247","https://www.youtube.com/watch?v=" + video_id, "--output", path], shell=True)
+
+    subprocess.call([youtube, '-f', "''best/mp4''", '--write-auto-sub', '--write-sub',
+                     '--sub-lang', 'en', '--skip-unavailable-fragments',
+                     "https://www.youtube.com/watch?v=" + video_id, "--output",
+                     video_path], stdout=DEVNULL, stderr=DEVNULL)
 
 #main
 
