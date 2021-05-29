@@ -54,10 +54,5 @@ def detection(img_tensor,validity, class_name): # args  → img_tensor : img 값
             y2 = (np.array(boxes[0][i][3]) * wh[1]).astype(np.int32)
             a .append([x1,x2,y1,y2])
 
-    img = cv2.cvtColor(img_tensor, cv2.COLOR_RGB2BGR)
-    img = draw_outputs(img, (boxes, scores, classes, nums), class_names)
-    cv2.imwrite('./output.jpg',img)
-
-
     return a
 
