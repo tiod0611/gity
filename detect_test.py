@@ -9,7 +9,7 @@ from yolov3_tf2.models_test import (
 from yolov3_tf2.dataset import transform_images, load_tfrecord_dataset
 from yolov3_tf2.utils import draw_outputs
 
-def detection(img_tensor,validity): # args  → img_tensor : img 값을 직접 받기 위해 
+def detection(img_tensor,validity, class_name): # args  → img_tensor : img 값을 직접 받기 위해 
     #physical_devices = tf.config.experimental.list_physical_devices('GPU')
     #for physical_device in physical_devices:
     #    tf.config.experimental.set_memory_growth(physical_device, True)
@@ -41,7 +41,7 @@ def detection(img_tensor,validity): # args  → img_tensor : img 값을 직접 �
 
     global a  # 이미지 좌표값을 저장
     a =[] 
-    name = labels.index('car') # 원하는 class_name 위치
+    name = labels.index(class_name) # 원하는 class_name 위치
     
     for i in range(len(classes[0])):
     	# detection된 것들중에서 원하는 class만 저장 & 입력한 정확도보다 이상
@@ -53,6 +53,11 @@ def detection(img_tensor,validity): # args  → img_tensor : img 값을 직접 �
             x2 = (np.array(boxes[0][i][2]) * wh[0]).astype(np.int32)
             y2 = (np.array(boxes[0][i][3]) * wh[1]).astype(np.int32)
             a .append([x1,x2,y1,y2])
+
+    img = cv2.cvtColor(img_tensor, cv2.COLOR_RGB2BGR)
+    img = draw_outputs(img, (boxes, scores, classes, nums), class_names)
+    cv2.imwrite('./output.jpg',img)
+
 
     return a
 
