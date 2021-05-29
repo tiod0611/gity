@@ -20,19 +20,26 @@ def save(path, frames, seq, obj_num):
 
 
 # RGB합계값으로 객체 세분화 및 번호 부여 (Object segmentation by RGB value)
-def obj_segmentation(crop_rgb_dict, crop_sum):
+def obj_segmentation(crop_rgb_dict, crop_list):
 	obj_num = 0
 	if crop_rgb_dict == {}:
-		crop_rgb_dict[1] = crop_sum
+		crop_rgb_dict[1] = crop_list
 		obj_num = 1
 	else:
 		for key, value in crop_rgb_dict.items():
-			# 기준객체의 +- 20% 값으로 동일객체 판단
-			if crop_sum <= (value * 1.2) and crop_sum >= (value * 0.8):
-				obj_num = key
-				break
+			# 기준객체의 RGB값 각각 +- 20% 값으로 동일객체 판단
+			pass_crop = 0
+			for i, rgb in enumerate(value):
+				if crop_list[i] <= (rgb * 1.2) and crop_list[i] >= (rgb * 0.8):
+					pass_crop += 1
+					if pass_crop == 3: # r,g,b 모두 조건에 맞다면 해당 key_number 부여
+						obj_num = key
+						break
+				else :
+					break
+					
 		if obj_num == 0:
-			crop_rgb_dict[max(crop_rgb_dict.keys()) + 1] = crop_sum
+			crop_rgb_dict[max(crop_rgb_dict.keys()) + 1] = crop_list
 			obj_num = max(crop_rgb_dict.keys())
 
 	return crop_rgb_dict, obj_num
@@ -40,7 +47,7 @@ def obj_segmentation(crop_rgb_dict, crop_sum):
 
 # 비디오 불러오기, 좌표값을 받아 이미지 자르기 (Load video, Crop images by coordinate value)
 # def run(data):
-def run(download, acc, image_shape, out_folder, video_id):
+def run(download, acc, image_shape, out_folder, video_id, class_name):
     # video_id, args = data
 	video_path = os.path.join(download, os.listdir(download)[0])
 	reader = imageio.get_reader(video_path)
@@ -52,7 +59,7 @@ def run(download, acc, image_shape, out_folder, video_id):
 			# resize to detection model input size (416, 416)
 			if i % 5 == 0:
 				frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
-				bboxes = detection(frame, acc) # 프레임 데이터와 검출정확도
+				bboxes = detection(frame, acc, class_name) # 프레임 데이터와 검출정확도
 				print(i, bboxes) # 프레임 별 좌표 검출 정보
 			else:
 				continue
@@ -61,8 +68,8 @@ def run(download, acc, image_shape, out_folder, video_id):
 				x1, x2, y1, y2 = bbox
 				crop = frame[y1:y2, x1:x2]
 				# 잘라낸 이미지의 RGB값 합계
-				crop_sum = crop[:, :, 0].sum() + crop[:, :, 1].sum() + crop[:, :, 2].sum()
-				crop_rgb_dict, obj_num = obj_segmentation(crop_rgb_dict, crop_sum)
+				crop_list = [crop[:, :, 0].sum(), crop[:, :, 1].sum(), crop[:, :, 2].sum()]
+				crop_rgb_dict, obj_num = obj_segmentation(crop_rgb_dict, crop_list)
 				
 				# 입력받은 이미지 크기(shape)로 재조정
 				if image_shape is not None:
