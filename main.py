@@ -19,13 +19,12 @@ if __name__ == "__main__":
     
     parser = ArgumentParser()
     parser.add_argument("--keyword", required=True, help="다운로드할 영상 키워드를 입력")
-    parser.add_argument("--download", default="download", help="다운로드할 위치")
-    parser.add_argument("--num_video", default=10, type=int, help="정수형, 다운로드 갯수는 n*40")
     parser.add_argument("--class_name", required=True, help="저장할 클래스명")
 
-    # parser.add_argument("--workers", default=1, type=int, help='Number of workers')
+    parser.add_argument("--download", default="download", help="다운로드할 위치")
+    parser.add_argument("--num_video", default=10, type=int, help="정수형, 다운로드 갯수는 n*40")
     parser.add_argument("--out_folder", default='gity_test', help='Path to output')
-    parser.add_argument("--acc", default="0.5", help="검출 정확도", type=float)
+    parser.add_argument("--accuracy", default="0.75", help="검출 정확도", type=float)
     parser.add_argument("--image_shape", default=(224, 224), type=lambda x: tuple(map(int, x.split(','))), help="Image shape, None for no resize")
     args = parser.parse_args()
 
@@ -50,7 +49,7 @@ if __name__ == "__main__":
         except:
             continue
 		
-        run(args.download, args.acc, args.image_shape, args.out_folder, video, args.class_name)
+        run(args.download, args.accuracy, args.image_shape, args.out_folder, video, args.class_name)
         
         if os.path.exists(os.path.join(args.download, video+".mp4")):
             os.remove(os.path.join(path_download, video+".mp4")) #동영상 삭제
