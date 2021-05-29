@@ -4,7 +4,8 @@
 
 # 진행 중
 ## kyeul 
-+ 
++ 정방향 이미지 자르기
+
 ## minding
 + RGB value (R, G, B) 각각 사용하여 객체 분류 정확도 높이기
 
@@ -13,13 +14,13 @@
 
 # 할  일 
 ## kyeul
-1. 저장 형식 세분화 cut image & get coordiante
-2. Linux용 크롤링 & download video
+1. git page 정리
+2. 
 3.
 
 
 ## minding
-1. RGB value (R, G, B) 각각 사용하여 객체 분류 정확도 높이기
+1. 이미지 세분화 (RGB)
 2. 
 3. 
 
@@ -31,9 +32,10 @@
 
 # 완료(완성된 기능은 아래에 기록해주세요.)
 ## Kyeul
-+ 크롤링 (windows10)
-+ 비디오1 다운로드 (windows10)
-+
++ 크롤링 (windows10) (폐기)
++ 비디오1 다운로드 (windows10) (폐기)
++ 리눅스 버전으로 코드 통합
+
 
 ## minding
 + 좌표 받아 이미지 자르기
