@@ -39,7 +39,7 @@ def obj_segmentation(crop_rgb_dict, crop_sum):
 
 # 비디오 불러오기, 좌표값을 받아 이미지 자르기 (Load video, Crop images by coordinate value)
 # def run(data):
-def run(download, acc, image_shape, out_folder, video_id, class_name):
+def run(download, accuracy, image_shape, out_folder, video_id, class_name):
     # video_id, args = data
 	video_path = os.path.join(download, os.listdir(download)[0])
 	reader = imageio.get_reader(video_path)
@@ -49,9 +49,9 @@ def run(download, acc, image_shape, out_folder, video_id, class_name):
 		for i, frame in enumerate(reader):
 			# import detection coordinate (bbox location = (x1, x2, y1, y2))
 			# resize to detection model input size (416, 416)
-			if i % 3 == 0:
+			if i % 10 == 0:
 				frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
-				bboxes = detection(frame, acc, class_name) # 프레임 데이터와 검출정확도
+				bboxes = detection(frame, accuracy, class_name) # 프레임 데이터와 검출정확도
 				print(i, bboxes) # 프레임 별 좌표 검출 정보
 			else:
 				continue
@@ -71,7 +71,7 @@ def run(download, acc, image_shape, out_folder, video_id, class_name):
 					first_part = ""
 					first_part += '#' + video_id
 					path = first_part + '.mp4' + '#' + str(obj_num)
-					save(os.path.join(out_folder, path), crop, i, obj_num)
+					save(os.path.join(out_folder, video_id, path), crop, i, obj_num)
 				except:
 					pass
 	except imageio.core.format.CannotReadFrameError:
