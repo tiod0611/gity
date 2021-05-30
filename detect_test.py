@@ -9,7 +9,7 @@ from yolov3_tf2.models_test import (
 from yolov3_tf2.dataset import transform_images, load_tfrecord_dataset
 from yolov3_tf2.utils import draw_outputs
 
-def detection(img_tensor,validity): # args  → img_tensor : img 값을 직접 받기 위해 
+def detection(img_tensor,validity, class_name): # args  → img_tensor : img 값을 직접 받기 위해 
     #physical_devices = tf.config.experimental.list_physical_devices('GPU')
     #for physical_device in physical_devices:
     #    tf.config.experimental.set_memory_growth(physical_device, True)
@@ -41,7 +41,7 @@ def detection(img_tensor,validity): # args  → img_tensor : img 값을 직접 �
 
     global a  # 이미지 좌표값을 저장
     a =[] 
-    name = labels.index('car') # 원하는 class_name 위치
+    name = labels.index(class_name) # 원하는 class_name 위치
     
     for i in range(len(classes[0])):
     	# detection된 것들중에서 원하는 class만 저장 & 입력한 정확도보다 이상
