@@ -52,8 +52,7 @@ if __name__ == "__main__":
         run(args.download, args.accuracy, args.image_shape, args.out_folder, video, args.class_name)
         
         if os.path.exists(os.path.join(args.download, video+".mp4")):
-            os.remove(os.path.join(path_download, video+".mp4")) #동영상 삭제
-        print(os.path.join(path_download, video+".mp4"))
+            os.remove(os.path.join(args.download, video+".mp4")) #동영상 삭제
         
        
 	
