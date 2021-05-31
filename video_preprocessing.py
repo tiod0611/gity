@@ -2,7 +2,7 @@ import numpy as np
 import imageio
 import os
 import warnings
-from detect_test import detection
+from detect import detection
 from argparse import ArgumentParser
 from skimage import img_as_ubyte
 from skimage.transform import resize
@@ -44,6 +44,33 @@ def obj_segmentation(crop_rgb_dict, crop_list):
 
 	return crop_rgb_dict, obj_num
 
+def padding(bbox):
+	x1,x2,y1,y2 = bbox
+	if (x2-x1) > (y2-y1): #가로가 더 긴 경우 
+		center = (y2+y1)/2
+		add_padding = (x2-x1)/2
+		if center-add_padding < 0: # x1이 맨 왼쪽인 경우
+			y1 = 0
+			y2 = (center+add_padding) + abs((center-add_padding))
+		elif center+add_padding > 416: # x2가 맨 오른쪽인 경우
+			y1 = (center-add_padding) - ((center+add_padding)-416)
+			y2 = 416
+		else:
+			y1 = center-add_padding
+			y2 = center+add_padding
+	else :  # 세로가 더 긴 경우
+		center = (x2+x1)/2
+		add_padding = (y2-y1)/2
+		if center-add_padding < 0: # y1이 맨 밑인 경우
+			x1 = 0
+			x2 = (center+add_padding) + abs((center-add_padding))
+		elif center+add_padding > 416: # y2가 맨 위인 경우
+			x1 = (center-add_padding) - ((center+add_padding)-416)
+			x2 = 416
+		else:
+			x1 = center-add_padding
+			x2 = center+add_padding
+	return int(x1), int(x2), int(y1), int(y2)
 
 # 비디오 불러오기, 좌표값을 받아 이미지 자르기 (Load video, Crop images by coordinate value)
 # def run(data):
@@ -65,7 +92,8 @@ def run(download, acc, image_shape, out_folder, video_id, class_name):
 				continue
 
 			for bbox in bboxes:
-				x1, x2, y1, y2 = bbox
+				# 이미지 여백 추가 
+				x1,x2,y1,y2=padding(bbox)
 				crop = frame[y1:y2, x1:x2]
 				# 잘라낸 이미지의 RGB값 합계
 				crop_list = [crop[:, :, 0].sum(), crop[:, :, 1].sum(), crop[:, :, 2].sum()]
