@@ -6,6 +6,8 @@ from detect import detection
 from argparse import ArgumentParser
 from skimage import img_as_ubyte
 from skimage.transform import resize
+import tqdm
+
 warnings.filterwarnings("ignore")
 
 DEVNULL = open(os.devnull, 'wb')
@@ -46,12 +48,18 @@ def obj_segmentation(crop_rgb_dict, crop_list):
 
 def padding(bbox):
 	x1,x2,y1,y2 = bbox
+	add_frame = 10
+	x1 -= add_frame
+	y1 -= add_frame
+	x2 += add_frame
+	y2 += add_frame
+
 	if (x2-x1) > (y2-y1): #가로가 더 긴 경우 
 		center = (y2+y1)/2
 		add_padding = (x2-x1)/2
 		if center-add_padding < 0: # x1이 맨 왼쪽인 경우
 			y1 = 0
-			y2 = (center+add_padding) + abs((center-add_padding))
+			y2 = (center+add_padding) + abs((center-add_padding)) 
 		elif center+add_padding > 416: # x2가 맨 오른쪽인 경우
 			y1 = (center-add_padding) - ((center+add_padding)-416)
 			y2 = 416
@@ -70,42 +78,53 @@ def padding(bbox):
 		else:
 			x1 = center-add_padding
 			x2 = center+add_padding
+
+
+
 	return int(x1), int(x2), int(y1), int(y2)
 
 # 비디오 불러오기, 좌표값을 받아 이미지 자르기 (Load video, Crop images by coordinate value)
 # def run(data):
-def run(download, acc, image_shape, out_folder, video_id, class_name):
+def run(download, accuracy, image_shape, out_folder, video_id, class_name):
     # video_id, args = data
 	video_path = os.path.join(download, os.listdir(download)[0])
 	reader = imageio.get_reader(video_path)
 	crop_rgb_dict = {}
 
 	try:
-		for i, frame in enumerate(reader):
+		for i, frame in enumerate(tqdm(reader)):
 			# import detection coordinate (bbox location = (x1, x2, y1, y2))
 			# resize to detection model input size (416, 416)
-			if i % 5 == 0:
+			if i % 10 == 0:
 				frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
-				bboxes = detection(frame, acc, class_name) # 프레임 데이터와 검출정확도
-				print(i, bboxes) # 프레임 별 좌표 검출 정보
+				bboxes = detection(frame, accuracy, class_name) # 프레임 데이터와 검출정확도
+				
+				# print(i, bboxes) # 프레임 별 좌표 검출 정보
+
 			else:
 				continue
 
 			for bbox in bboxes:
 				# 이미지 여백 추가 
-				x1,x2,y1,y2=padding(bbox)
+				p_x1,p_x2,p_y1,p_y2=padding(bbox)
+				x1,x2,y1,y2 = bbox
+				crop_p = frame[p_y1:p_y2, p_x1:p_x2]
 				crop = frame[y1:y2, x1:x2]
+				
 				# 잘라낸 이미지의 RGB값 합계
 				crop_list = [crop[:, :, 0].sum(), crop[:, :, 1].sum(), crop[:, :, 2].sum()]
 				crop_rgb_dict, obj_num = obj_segmentation(crop_rgb_dict, crop_list)
 				
 				# 입력받은 이미지 크기(shape)로 재조정
-				if image_shape is not None:
-					crop = img_as_ubyte(resize(crop, image_shape, anti_aliasing=True))
-				# 이미지 저장 경로 설정
-				first_part = ""
-				first_part += '#' + video_id
-				path = first_part + '.mp4' + '#' + str(obj_num)
-				save(os.path.join(out_folder, path), crop, i, obj_num)
+				try:
+					if image_shape is not None:
+						crop = img_as_ubyte(resize(crop_p, image_shape, anti_aliasing=True))
+					# 이미지 저장 경로 설정
+					first_part = ""
+					first_part += '#' + video_id
+					path = first_part + '.mp4' + '#' + str(obj_num)
+					save(os.path.join(out_folder, video_id, path), crop, i, obj_num)
+				except:
+					pass
 	except imageio.core.format.CannotReadFrameError:
-		None
+		None 
