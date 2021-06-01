@@ -3,7 +3,7 @@ Gather Image Through Youtube
 ---
 유튜브에서 원하는 객체를 검출하여 이미지로 저장해주는 코드입니다.  
 
-<img src="./information/image1.png" width="75%">
+<img src="./information/image1.png">
 
 
 
@@ -60,7 +60,7 @@ python main.py --keyword [키워드] --class_name [클래스 종류]
 ```
 
   ___Detection Class___
-   Object-detector는 ImageNet Dataset에 대해서 작동합니다.
+   Object-detector는 ImageNet Dataset에 대해서 작동합니다.  
    탐지 가능한 클래스 종류는 [이곳](./information/class_list.txt)에서 확인 가능합니다.
 
 example:
