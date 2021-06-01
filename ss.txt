@@ -1,0 +1,3 @@
+import skhu
+
+skhu = UH, NARAK
