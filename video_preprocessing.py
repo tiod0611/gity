@@ -87,7 +87,10 @@ def padding(bbox):
 # def run(data):
 def run(download, accuracy, image_shape, out_folder, video_id, class_name):
     # video_id, args = data
-	video_path = os.path.join(download, os.listdir(download)[0])
+	if os.path.exists(os.path.join(download, video_id+'.mp4')):
+		video_path = os.path.join(download, video_id+'.mp4')
+	else: 
+		return 
 	reader = imageio.get_reader(video_path)
 	crop_rgb_dict = {}
 
