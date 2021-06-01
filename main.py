@@ -4,7 +4,7 @@ import os
 import subprocess
 from argparse import ArgumentParser
 
-from video_preprocessing import run
+from processor import run
 
 from multiprocessing import Pool
 from itertools import cycle
