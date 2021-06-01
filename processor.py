@@ -2,7 +2,7 @@ import numpy as np
 import imageio
 import os
 import warnings
-from detect import detection
+from detecter import detect
 from argparse import ArgumentParser
 from skimage import img_as_ubyte
 from skimage.transform import resize
@@ -22,7 +22,7 @@ def save(path, frames, seq, obj_num):
 
 
 # RGB합계값으로 객체 세분화 및 번호 부여 (Object segmentation by RGB value)
-def obj_segmentation(crop_rgb_dict, crop_list):
+def group(crop_rgb_dict, crop_list):
 	obj_num = 0
 	if crop_rgb_dict == {}:
 		crop_rgb_dict[1] = crop_list
@@ -46,7 +46,7 @@ def obj_segmentation(crop_rgb_dict, crop_list):
 
 	return crop_rgb_dict, obj_num
 
-def padding(bbox):
+def make_square(bbox):
 	x1,x2,y1,y2 = bbox
 	add_frame = 10
 	x1 -= add_frame
@@ -100,7 +100,7 @@ def run(download, accuracy, image_shape, out_folder, video_id, class_name):
 			# resize to detection model input size (416, 416)
 			if i % 10 == 0:
 				frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
-				bboxes = detection(frame, accuracy, class_name) # 프레임 데이터와 검출정확도
+				bboxes = detect(frame, accuracy, class_name) # 프레임 데이터와 검출정확도
 				print(i, bboxes) # 프레임 별 좌표 검출 정보
 
 			else:
@@ -108,14 +108,14 @@ def run(download, accuracy, image_shape, out_folder, video_id, class_name):
 
 			for bbox in bboxes:
 				# 이미지 여백 추가 
-				p_x1,p_x2,p_y1,p_y2=padding(bbox)
+				p_x1,p_x2,p_y1,p_y2=make_square(bbox)
 				x1,x2,y1,y2 = bbox
 				crop_p = frame[p_y1:p_y2, p_x1:p_x2]
 				crop = frame[y1:y2, x1:x2]
 				
 				# 잘라낸 이미지의 RGB값 합계
 				crop_list = [crop[:, :, 0].sum(), crop[:, :, 1].sum(), crop[:, :, 2].sum()]
-				crop_rgb_dict, obj_num = obj_segmentation(crop_rgb_dict, crop_list)
+				crop_rgb_dict, obj_num = group(crop_rgb_dict, crop_list)
 				
 				# 입력받은 이미지 크기(shape)로 재조정
 				try:
