@@ -17,7 +17,7 @@ Gather Image Through Youtube
 + OS  
   __리눅스__ 에서 테스트를 진행했습니다.
 +  GPU  
-  __RTX3090__에서 테스트를 진행했습니다.
+  __RTX3090__ 에서 테스트를 진행했습니다.
 + Tensorflow  
   __tensorflow 2.0__ 이상 에서 작동합니다.
 
