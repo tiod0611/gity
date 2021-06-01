@@ -23,12 +23,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--download", default="download", help="다운로드할 위치")
     parser.add_argument("--num_video", default=10, type=int, help="정수형, 다운로드 갯수는 n*40")
-    parser.add_argument("--out_folder", default='gity_test', help='Path to output')
+    parser.add_argument("--out_folder", default='output', help='Path to output')
     parser.add_argument("--accuracy", default="0.75", help="검출 정확도", type=float)
     parser.add_argument("--image_shape", default=(224, 224), type=lambda x: tuple(map(int, x.split(','))), help="Image shape, None for no resize")
     args = parser.parse_args()
 
-    
+    existed_video=[]
    
     # path_download = os.path.join(os.path.dirname(os.path.abspath(__file__)), args.download)
     # path_output = os.path.join(os.path.dirname(os.path.abspath(__file__)), args.out_folder)
@@ -36,11 +36,15 @@ if __name__ == "__main__":
     
     if not os.path.exists(args.download):
         os.makedirs(args.download)
+
     if not os.path.exists(args.out_folder):
         os.makedirs(args.out_folder)
+    else:
+        existed_video = os.dirlist(args.out_folder)
 
 
     video_ids = crawling(args.keyword, args.num_video)
+    video_ids = [x for x in video_ids not in existed_video]
 
     for video in video_ids:
         print(video)
