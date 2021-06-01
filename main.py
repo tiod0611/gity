@@ -40,7 +40,7 @@ if __name__ == "__main__":
     if not os.path.exists(args.out_folder):
         os.makedirs(args.out_folder)
 
-    existed_video = os.dirlist(args.out_folder)
+    existed_video = os.listdir(args.out_folder)
 
     video_ids = crawling(args.keyword, args.num_video)
     video_ids = [x for x in video_ids if x not in existed_video]
