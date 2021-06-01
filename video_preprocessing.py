@@ -95,14 +95,14 @@ def run(download, accuracy, image_shape, out_folder, video_id, class_name):
 	crop_rgb_dict = {}
 
 	try:
-		for i, frame in enumerate(tqdm(reader)):
+		for i, frame in enumerate(reader):
 			# import detection coordinate (bbox location = (x1, x2, y1, y2))
 			# resize to detection model input size (416, 416)
 			if i % 10 == 0:
 				frame = img_as_ubyte(resize(frame, (416,416), anti_aliasing=True))
 				bboxes = detection(frame, accuracy, class_name) # 프레임 데이터와 검출정확도
 				
-				# print(i, bboxes) # 프레임 별 좌표 검출 정보
+				print(i, bboxes) # 프레임 별 좌표 검출 정보
 
 			else:
 				continue
@@ -129,5 +129,5 @@ def run(download, accuracy, image_shape, out_folder, video_id, class_name):
 					save(os.path.join(out_folder, video_id, path), crop, i, obj_num)
 				except:
 					pass
-	except imageio.core.format.CannotReadFrameError:
+	except :
 		None 
