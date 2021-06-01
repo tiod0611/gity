@@ -14,11 +14,11 @@ Gather Image Through Youtube
 - [실행](#run)
 - [작성자](#author)
 ## Environment
-+ OS
++ OS  
   __리눅스__ 에서 테스트를 진행했습니다.
-+  GPU
++  GPU  
   __RTX3090__에서 테스트를 진행했습니다.
-+ Tensorflow
++ Tensorflow  
   __tensorflow 2.0__ 이상 에서 작동합니다.
 
 
