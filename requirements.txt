@@ -1,0 +1,14 @@
+selenium==3.141.0
+scikit-image==0.18.1
+numpy==1.19.5
+matplotlib==3.3.4
+tqdm
+lxml
+cycler==0.10.0
+imageio==2.5.0
+imageio-ffmpeg==0.3.0
+h5py
+pyyaml
+absl-py
+tensorflow-gpu==2.5.1
+opencv-python==4.1.1.26
