@@ -16,10 +16,11 @@ Gather Image Through Youtube
 ## Environment
 + OS  
   __ubuntu 20.04__ 에서 테스트를 진행했습니다.
+  __Windows 10__ 에서 테스트를 진행했습니다.
 +  GPU  
   __RTX3090__ 에서 테스트를 진행했습니다.
 + Tensorflow  
-  __tensorflow 2.0__ 이상 에서 작동합니다.
+  __tensorflow 2.5__ 에서 작동합니다.
 
 
 
@@ -35,15 +36,22 @@ pip install -r requirements.txt
 ```
 
 2. chromedrive
++ Ubuntu
 ```
 apt-get update
 apt install chromium-chromedriver
 ```
++ Windows
+[이곳](https://chromedriver.chromium.org/downloads) 에서 자신의 크롬 버전에 맞는 파일을 다운 받아 gity 파일 안에 넣어 줍니다.
+
 3. youtube-dl
++ Ubuntu
 ```
 wget https://yt-dl.org/downloads/latest/youtube-dl -O youtube-dl
 chmod a+rx youtube-dl
 ```
++ Windows
+[이곳](https://github.com/yt-dlp/yt-dlp) 에서 yt-dlp.exe를 받아서 gity 파일 안에 넣어 줍니다.
 
 #### Detector
 1. detection-weight
@@ -84,6 +92,9 @@ python main.py --help
 
 + [object detector](https://github.com/zzh8829/yolov3-tf2)
 
+## 대회 제출 파일
+
+[발표자료.PDF](./information/GITY_발표자료.pdf)
 
 
 ## author
