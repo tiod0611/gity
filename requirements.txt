@@ -1,6 +1,6 @@
 selenium==3.141.0
 scikit-image==0.18.1
-numpy==1.19.5
+numpy
 matplotlib==3.3.4
 tqdm
 lxml
